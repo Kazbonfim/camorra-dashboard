@@ -1,6 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt'
+import { pool } from '../database/db';
 
 const app = Router();
 
@@ -40,6 +41,12 @@ function authenticateToken(req: IGetUserAuthInfoRequest, res: Response, next: Ne
 app.get('/', (req: Request, res: Response) => {
     res.status(201).json({ message: "As demais rotas acessíveis são: /login, e /register, obrigado por testar" })
 })
+
+app.get('/test', (req: Request, res: Response) => {
+    console.log('Api está funcionando normalmente')
+    // Realizar testes
+    res.status(200).json({ message: "Servidor saúdavel, por favor, prossiga!" })
+});
 
 app.post('/register', async (req: Request, res: Response) => {
     const { username, password } = req.body;
@@ -85,8 +92,9 @@ app.post('/login', async (req: Request, res: Response) => {
             return res.status(401).json({ message: "Usuário ou senha inválidos." });
         }
 
-        const accessToken = jwt.sign({ username: user.username, loginAt: new Date()
-         }, process.env.CRYPTO!, { expiresIn: "1h" });
+        const accessToken = jwt.sign({
+            username: user.username, loginAt: new Date()
+        }, process.env.CRYPTO!, { expiresIn: "1h" });
 
         res.json({ accessToken });
     } catch (error) {
@@ -94,13 +102,21 @@ app.post('/login', async (req: Request, res: Response) => {
     }
 });
 
-app.get('/users', authenticateToken, (req: IGetUserAuthInfoRequest, res: Response) => {
+app.get('/users', authenticateToken, async (req: IGetUserAuthInfoRequest, res: Response) => {
+    // Buscando dados de Mock, neste mesmo arquivo, para fins de testes.
     const listaUsuarios = usuariosDB.map(({ username, cargo, created_at }) => ({
         username,
         cargo,
         created_at
     }));
-    res.status(200).json(listaUsuarios);
+
+    try {
+        const result = await pool.query('select * from users;')
+        res.status(200).json({ mock: listaUsuarios, db: result.rows });
+    } catch (error) {
+        console.error('Erro ao buscar usuários:', error);
+        res.status(500).json({ message: 'Erro ao listar usuários.' });
+    }
 });
 
 export default app;

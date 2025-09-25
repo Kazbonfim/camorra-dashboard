@@ -42,8 +42,8 @@ async function getUsuarios() {
         // Encerra o pool após a consulta para o script terminar.
         // Em uma aplicação real (ex: API), não faça isso.
         // A conexão deve permanecer aberta.
-        console.log('Fechando conexões! Testes finalizados.')
-        await pool.end();
+        console.log('Testes finalizados.')
+        // await pool.end();
     }
 }
 

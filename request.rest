@@ -3,14 +3,16 @@ GET http://localhost:8080/
 
 ###
 
+GET http://localhost:8080/test
+
 ### Cadastro de um novo usuário
 # Primeiro, cadastre o usuário "Kazbonfim"
 POST http://localhost:8080/register
 Content-Type: application/json
 
 {
-    "username": "Kazbonfim",
-    "password": "letscode"
+    "username": "maria_gomes",
+    "password": "senha456"
 }
 
 ###
@@ -21,8 +23,8 @@ POST http://localhost:8080/login
 Content-Type: application/json
 
 {
-    "username": "Kazbonfim",
-    "password": "letscode"
+    "username": "maria_gomes",
+    "password": "senha456"
 }
 
 ###
@@ -30,4 +32,4 @@ Content-Type: application/json
 ### Acessar rota protegida
 # Copie o token de acesso (accessToken) da resposta do login e cole aqui
 GET http://localhost:8080/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthemJvbmZpbSIsImxvZ2luQXQiOiIyMDI1LTA5LTI1VDE2OjQwOjEwLjQwOFoiLCJpYXQiOjE3NTg4MTg0MTAsImV4cCI6MTc1ODgyMjAxMH0.SGcHbzq66FLejHyBDFsMKq0JOdSjv8h2-Xj4s1kv7X8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hcmlhX2dvbWVzIiwibG9naW5BdCI6IjIwMjUtMDktMjVUMTg6MTY6NDcuMjE4WiIsImlhdCI6MTc1ODgyNDIwNywiZXhwIjoxNzU4ODI3ODA3fQ.EC2uRORSzxG9q187k9ychFFWAO4qLCHntoaE1sbm3Eg
