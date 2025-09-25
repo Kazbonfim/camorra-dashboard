@@ -15,7 +15,7 @@ O projeto consiste em um site, que vai agregar usuários do servidor Camorra no 
 
 ## Para que serve esse documento?
 
-O foco disso aqui, além de explicar para todos os membros o viés do projeto, é definir bem os escopos, e tecnologias utilizadas, para documentar os recursos, e manter o desenvolvimento mais organizado - que aliás, só conta comigo (@Kaz Bonfim) como desenvolvedor-chefe (CTO).
+O foco disso aqui, além de explicar para todos os membros o viés do projeto, é definir bem os escopos, e tecnologias utilizadas, para documentar os recursos, e manter o desenvolvimento mais organizado - que aliás, só conta comigo (@Kazbonfim) como desenvolvedor-chefe (CTO).
 
 Vamos elaboras os seguintes tópicos:
 
