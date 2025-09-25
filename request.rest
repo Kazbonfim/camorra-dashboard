@@ -1,0 +1,33 @@
+### Rota de Status da API
+GET http://localhost:8080/
+
+###
+
+### Cadastro de um novo usuário
+# Primeiro, cadastre o usuário "Kazbonfim"
+POST http://localhost:8080/register
+Content-Type: application/json
+
+{
+    "username": "Kazbonfim",
+    "password": "letscode"
+}
+
+###
+
+### Login de usuário
+# Use o usuário "Kazbonfim" cadastrado para obter um token
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+    "username": "Kazbonfim",
+    "password": "letscode"
+}
+
+###
+
+### Acessar rota protegida
+# Copie o token de acesso (accessToken) da resposta do login e cole aqui
+GET http://localhost:8080/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthemJvbmZpbSIsImxvZ2luQXQiOiIyMDI1LTA5LTI1VDE2OjQwOjEwLjQwOFoiLCJpYXQiOjE3NTg4MTg0MTAsImV4cCI6MTc1ODgyMjAxMH0.SGcHbzq66FLejHyBDFsMKq0JOdSjv8h2-Xj4s1kv7X8
