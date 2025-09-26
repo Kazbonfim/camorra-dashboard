@@ -9,25 +9,28 @@ const shorthands = undefined;
  * @returns {Promise<void> | void}
  */
 const up = (pgm) => {
-    pgm.sql(`create table
-  users (
-    uuid uuid primary key default gen_random_uuid (),
-    username varchar(100) not null,
-    email varchar(100) unique not null,
-    password varchar(100) not null,
-    created_at timestamp default current_timestamp
-  );
-  
-  create table
-  products (
-    uuid uuid primary key default gen_random_uuid (),
-    name varchar(255) not null,
-    description text,
-    price numeric(10, 2) not null,
-    created_by_user_uuid uuid,
-    created_at timestamp default current_timestamp,
-    constraint fk_user foreign key (created_by_user_uuid) references users (uuid) on delete cascade
-  );`)
+  pgm.sql(`CREATE TABLE discord_users (
+  discord_id BIGINT PRIMARY KEY,
+  username VARCHAR(100) NOT NULL,
+  global_name VARCHAR(100),
+  joined_at TIMESTAMP NOT NULL
+);
+
+CREATE TABLE activities (
+  id SERIAL PRIMARY KEY,
+  discord_id BIGINT NOT NULL,
+  type VARCHAR(50) NOT NULL, -- Ex: 'message', 'voice', 'event_participation'
+  points INTEGER NOT NULL,
+  timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (discord_id) REFERENCES discord_users (discord_id) ON DELETE CASCADE
+);
+
+CREATE TABLE user_scores (
+  discord_id BIGINT PRIMARY KEY,
+  total_points BIGINT DEFAULT 0,
+  last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (discord_id) REFERENCES discord_users (discord_id) ON DELETE CASCADE
+);`)
 };
 
 /**
@@ -35,11 +38,12 @@ const up = (pgm) => {
  * @param run {() => void | undefined}
  * @returns {Promise<void> | void}
  */
+
+
 const down = (pgm) => {
-    pgm.sql(`
-    DROP TABLE products;
-    DROP TABLE users;
-  `);
+  pgm.sql(`
+  DROP TABLE activities,user_scores,discord_users CASCADE;
+`);
 };
 
 module.exports = { up, down, shorthands };

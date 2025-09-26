@@ -104,14 +104,15 @@ app.post('/login', async (req: Request, res: Response) => {
 
 app.get('/users', authenticateToken, async (req: IGetUserAuthInfoRequest, res: Response) => {
     // Buscando dados de Mock, neste mesmo arquivo, para fins de testes.
-    const listaUsuarios = usuariosDB.map(({ username, cargo, created_at }) => ({
+    const listaUsuarios = usuariosDB.map(({ username, passwordHash,cargo, created_at }) => ({
         username,
+        passwordHash,
         cargo,
         created_at
     }));
 
     try {
-        const result = await pool.query('select * from users;')
+        const result = await pool.query('select * from discord_users;')
         res.status(200).json({ mock: listaUsuarios, db: result.rows });
     } catch (error) {
         console.error('Erro ao buscar usuários:', error);

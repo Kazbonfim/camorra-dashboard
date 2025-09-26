@@ -34,7 +34,7 @@ export { pool };
 // Teste in-loco
 async function getUsuarios() {
     try {
-        const res = await pool.query('select * from users;')
+        const res = await pool.query('select * from discord_users;')
         console.log('Usuários encontrados', res.rows);
     } catch (error) {
         console.error('Houve um erro, por favor, verifique os logs', error)
